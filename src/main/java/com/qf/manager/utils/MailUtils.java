@@ -28,6 +28,7 @@ public class MailUtils {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 //javax.mail.AuthenticationFailedException  密码应该填写授权码POP3/SMTP/IMAP
+                //可以将用户名和密码提取到配置文件中 在此就不提取了
                 return new PasswordAuthentication("17355805355@163.com","116719mck");
             }
         });
@@ -36,6 +37,12 @@ public class MailUtils {
         //3设置发件人
         message.setFrom(new InternetAddress("17355805355@163.com"));
         //4设置收件人
+        /**
+         * 设置收件人地址（可以增加多个收件人、抄送、密送），即下面这一行代码书写多行
+         * MimeMessage.RecipientType.TO:发送
+         * MimeMessage.RecipientType.CC：抄送
+         * MimeMessage.RecipientType.BCC：密送
+         */
         message.setRecipient(Message.RecipientType.TO,new InternetAddress(to));
         //5设置主题
         message.setSubject("激活邮件");
@@ -44,4 +51,12 @@ public class MailUtils {
         //5发送邮件
         Transport.send(message);
     }
+
+
+//    public static void main(String[] args) throws IOException {
+//        Properties props = new Properties();
+//        props.load(ClassLoader.getSystemResourceAsStream("db.properties"));
+//        String userName  =(String)props.get("javaMail.userName");
+//        System.out.println(userName);
+//    }
 }
