@@ -9,18 +9,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Create by it_mck 2018/10/13 23:50
  *
- * @Description:
+ * @Description: 用于测试登录注册是否能正常使用JavaMail
  * @Version: 1.0
  */
 @Controller
 @RequestMapping("/log")
-public class RegistController {
+public class ActionController {
 
     @Autowired
     private UserService userService;
@@ -30,10 +32,22 @@ public class RegistController {
 
         return "regist";//进入注册页面
     }
+
+    @RequestMapping("/sucess")
+    public String sucess() {
+
+        return "sucess";//进入注册页面
+    }
+    @RequestMapping("/err")
+    public String err() {
+
+        return "404";//进入注册页面
+    }
+
     @RequestMapping("/indexLogin")
     public String indexLogin() {
 
-        return "login";//进入注册页面
+        return "login";//进入登录页面
     }
 
     /**
@@ -44,9 +58,8 @@ public class RegistController {
      */
     @RequestMapping("regist")
     @ResponseBody
-    public Map<String, Object> postRegist(User user) {
+    public String postRegist(User user, Map<String, Object> map) {
 
-        Map<String, Object> map = new HashMap<>();
         user.setState(0);//0代表未激活 1代表已经激活
         user.setCode(UUIDUtils.getUUID());
 
@@ -59,11 +72,12 @@ public class RegistController {
             e.printStackTrace();
         }
 
-        return map;
+        return "sucess";
     }
 
     /**
      * 激活用户,根据code将标志字段设置为1
+     *
      * @param code
      * @return
      */
@@ -83,22 +97,26 @@ public class RegistController {
     }
 
     @RequestMapping("login")
-    @ResponseBody
-    public Map<String, Object> login(User user) {
+    public String login(User user, HttpServletRequest request) {
 
-        Map<String, Object> map = new HashMap<>();
+        HttpSession session = request.getSession();
         try {
             User u = userService.login(user);
-            if(u!=null){
-                map.put("sucess", "登录成功,账户可以登录");
-            }else{
-                map.put("fail", "登陆失败...............");
+            if (u != null) {
+                //登录验证成功,经信息存入session域
+                session.setAttribute("login_user", u.getUname());
+                session.setAttribute("msg", "登录成功");
+                session.setMaxInactiveInterval(1 * 60);//设置失效时间 单位时间为s  当1分钟没有活动就会失效session
+                return "sucess";
+            } else {
+                session.setAttribute("msg", "登陆失败...............");
+                return "fail";
             }
         } catch (Exception e) {
-            map.put("fail", "登陆失败...............");
+            session.setAttribute("msg", "登陆失败...............");
             e.printStackTrace();
+            return "fail";
         }
-        return map;
     }
 
 }
