@@ -65,7 +65,7 @@ public class VerifyCodeUtil {
      * @throws IOException
      */
     public static void outputCaptch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("image/jpeg");
+        response.setContentType("image/jpeg");//设置输出流内容格式为图片格式
         String randomString = getRandomString(4);//获取6位随机数
         HttpSession session = request.getSession(true);//getSession(true)若存在会话则返回该会话，否则新建一个会话.设值进入到session中
         session.setAttribute("randomString", randomString); //存入该数据
