@@ -10,15 +10,15 @@ public class User {
 
     private Long id;
 
-    private String uname;
+    private String uname;//用户名
 
-    private String upwd;
+    private String upwd;//密码
 
-    private Integer state;
+    private Integer state;//在数据库中对应的状态 0--未激活 1--已经激活
 
-    private String code;
+    private String code;//验证码
 
-    private String email;
+    private String email;//邮箱
 
     public String getEmail() {
         return email;

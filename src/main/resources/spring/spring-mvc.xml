@@ -41,18 +41,19 @@
     <!--静态资源放行：http://localhost:81/manager/css/hello.css本来是要经过contrller,但是配置了这句话，配置完了以后，直接去寻找webapp/css/hello.css-->
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/lib/**" location="/lib/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
 
     <!--配置拦截器-->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
-            <!--拦截所有路径-->
+            &lt;!&ndash;拦截所有路径&ndash;&gt;
             <mvc:mapping path="/**" />
-            <!--不拦截的路径-->
+            &lt;!&ndash;不拦截的路径&ndash;&gt;
             <mvc:exclude-mapping path="/static/**" />
             <mvc:exclude-mapping path="/log/index*" />
             <mvc:exclude-mapping path="/log/login" />
-            <!--注入拦截器-->
+            &lt;!&ndash;注入拦截器&ndash;&gt;
             <bean class="com.qf.manager.web.LoginFilterController" />
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>

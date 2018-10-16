@@ -38,6 +38,7 @@ public class ActionController {
 
         return "sucess";//进入注册页面
     }
+
     @RequestMapping("/err")
     public String err() {
 
@@ -100,23 +101,30 @@ public class ActionController {
     public String login(User user, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        try {
-            User u = userService.login(user);
-            if (u != null) {
-                //登录验证成功,经信息存入session域
+        String randomString = (String) session.getAttribute("randomString");
+        String code = user.getCode();
+
+        if(randomString.equalsIgnoreCase(code)){ //忽略大小写匹配
+            try {
+                User u = userService.login(user);
+                if (u != null) {
+                    //登录验证成功,经信息存入session域
+                }
                 session.setAttribute("login_user", u.getUname());
                 session.setAttribute("msg", "登录成功");
                 session.setMaxInactiveInterval(1 * 60);//设置失效时间 单位时间为s  当1分钟没有活动就会失效session
                 return "sucess";
-            } else {
+
+            } catch (Exception e) {
                 session.setAttribute("msg", "登陆失败...............");
+                e.printStackTrace();
                 return "fail";
             }
-        } catch (Exception e) {
-            session.setAttribute("msg", "登陆失败...............");
-            e.printStackTrace();
+        }else{
+            session.setAttribute("msg", "验证码错误...............");
             return "fail";
         }
+
     }
 
 }
