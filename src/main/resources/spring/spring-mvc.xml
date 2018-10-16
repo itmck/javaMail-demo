@@ -44,16 +44,16 @@
     <mvc:resources mapping="/js/**" location="/js/"/>
 
     <!--配置拦截器-->
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            &lt;!&ndash;拦截所有路径&ndash;&gt;
+            <!--拦截所有路径-->
             <mvc:mapping path="/**" />
-            &lt;!&ndash;不拦截的路径&ndash;&gt;
+            <!--不拦截的路径-->
             <mvc:exclude-mapping path="/static/**" />
             <mvc:exclude-mapping path="/log/index*" />
             <mvc:exclude-mapping path="/log/login" />
-            &lt;!&ndash;注入拦截器&ndash;&gt;
+            <!--注入拦截器-->
             <bean class="com.qf.manager.web.LoginFilterController" />
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 </beans>
