@@ -50,26 +50,28 @@
 <%--引入jquery插件--%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript">
+
     //获取验证码 刷新
     function getver() {
         $("#verify").attr("src", "${pageContext.request.contextPath}/user/getVerifyCode?" + (new Date()).valueOf());
     }
 
-    //失去焦点发送异步请求查询邮箱是否已经被占用
-    $("#email").blur(function () {
-        var val = $("#email").val();
-        //发送异步请求
-        $.post(
-            "${pageContext.request.contextPath}/log/getVerifyEmail",
-            {email: val},
-            function (data) {
-               // console.log(data.valueOf());
-               // alert(data.f);
-               $("#sp1").html(data.msg);
-            },
-            "json"
-        );
+    $(function () {//页面加载函数
+        //失去焦点发送异步请求查询邮箱是否已经被占用
+        $("#email").blur(function () {
+            var val = $("#email").val();
+            //发送异步请求
+            $.post(
+                "${pageContext.request.contextPath}/log/getVerifyEmail",
+                {email: val},
+                function (data) {
+                    // console.log(data.valueOf());
+                    // alert(data.f);
+                    $("#sp1").html(data.msg);
+                },
+                "json"
+            );
+        });
     });
-
 </script>
 </html>
