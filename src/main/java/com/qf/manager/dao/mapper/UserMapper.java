@@ -19,4 +19,7 @@ public interface UserMapper {
     int activeUser(String code);
 
     User login(User user);
+
+    //验证邮箱是否被注册
+    User getVerifyEmail(String email);
 }

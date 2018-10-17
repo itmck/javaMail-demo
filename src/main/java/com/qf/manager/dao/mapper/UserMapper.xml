@@ -7,9 +7,10 @@
         <result column="upwd" property="upwd" jdbcType="VARCHAR"/>
         <result column="state" property="state" jdbcType="INTEGER"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, uname, upwd, state, code
+    id, uname, upwd, state, code,email
   </sql>
 
     <!--登录-->
@@ -20,6 +21,13 @@
         where uname = #{uname,jdbcType=VARCHAR}
         and upwd= #{upwd,jdbcType=VARCHAR}
         and state=#{state,jdbcType=INTEGER}
+    </select>
+    <!--邮箱验证-->
+    <select id="getVerifyEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where email = #{email,jdbcType=VARCHAR}
     </select>
     <!--注册用户-->
     <insert id="registUser" parameterType="com.qf.manager.pojo.User">
@@ -40,6 +48,9 @@
             <if test="code != null">
                 code,
             </if>
+            <if test="email != email">
+                email,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -57,6 +68,9 @@
             <if test="code != null">
                 #{code,jdbcType=VARCHAR},
             </if>
+            <if test="email != email">
+                #{email,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.qf.manager.pojo.User">
@@ -73,6 +87,9 @@
             </if>
             <if test="code != null">
                 code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="email != email">
+                code = #{email,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}

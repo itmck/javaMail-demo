@@ -127,4 +127,28 @@ public class ActionController {
 
     }
 
+    /**
+     *
+     * 异步验证邮箱是否被注册
+     * @param email
+     * @return
+     */
+    @RequestMapping(value="/getVerifyEmail")
+    @ResponseBody
+    public Map<String,Object> getVerifyEmail(String email){
+        Map<String,Object> map = new HashMap<>();
+        try {
+            User user = userService.getVerifyEmail(email);
+            if(user!=null){
+                map.put("msg","邮箱已经被占用,请更换邮箱");
+            }else{
+                map.put("msg","邮箱可以使用");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+
+    }
+
 }

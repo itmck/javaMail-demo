@@ -16,4 +16,7 @@ public interface UserService {
 
     //登录
     User login(User user);
+
+    //验证邮箱是否被注册
+    User getVerifyEmail(String email);
 }
