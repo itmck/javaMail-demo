@@ -29,6 +29,13 @@
         from user
         where email = #{email,jdbcType=VARCHAR}
     </select>
+    <!--用户名验证-->
+    <select id="getVerifyUName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where uname = #{uname,jdbcType=VARCHAR}
+    </select>
     <!--注册用户-->
     <insert id="registUser" parameterType="com.qf.manager.pojo.User">
         insert into user

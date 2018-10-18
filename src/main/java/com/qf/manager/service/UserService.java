@@ -19,4 +19,7 @@ public interface UserService {
 
     //验证邮箱是否被注册
     User getVerifyEmail(String email);
+
+    //验证用户名是否被占用
+    User getVerifyUName(String uname);
 }

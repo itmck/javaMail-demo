@@ -36,19 +36,29 @@ public class ActionController {
     @RequestMapping("/sucess")
     public String sucess() {
 
-        return "sucess";//进入注册页面
+        return "sucess";//成功页面
     }
 
     @RequestMapping("/err")
     public String err() {
 
-        return "404";//进入注册页面
+        return "404";//错误页面
     }
 
     @RequestMapping("/indexLogin")
     public String indexLogin() {
 
         return "login";//进入登录页面
+    }
+    @RequestMapping("/loginMax")
+    public String loginMax() {
+
+        return "max/login_max";//进入登录页面
+    }
+    @RequestMapping("/registMax")
+    public String registMax() {
+
+        return "max/regist_max";//进入登录页面
     }
 
     /**
@@ -67,9 +77,9 @@ public class ActionController {
         try {
             int i = userService.registUser(user);
             MailUtils.sendEmail(user.getEmail(), user.getCode());
-            map.put("sucess", "注册成功,进入邮箱激活后即可使用");
+            map.put("msg", "注册成功,进入邮箱激活后即可使用");
         } catch (Exception e) {
-            map.put("fail", "注册失败,重新注册");
+            map.put("msg", "注册失败,重新注册");
             e.printStackTrace();
         }
 
@@ -89,9 +99,9 @@ public class ActionController {
         Map<String, Object> map = new HashMap<>();
         try {
             int i = userService.activeUser(code);
-            map.put("sucess", "激活成功,账户可以登录");
+            map.put("msg", "激活成功,账户可以登录");
         } catch (Exception e) {
-            map.put("fail", "激活失败...............");
+            map.put("msg", "激活失败...............");
             e.printStackTrace();
         }
         return map;
@@ -143,6 +153,29 @@ public class ActionController {
                 map.put("msg","邮箱已经被占用,请更换邮箱");
             }else{
                 map.put("msg","邮箱可以使用");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+
+    }
+    /**
+     *
+     * 异步验证用户名是否被注册
+     * @param uname
+     * @return
+     */
+    @RequestMapping(value="/getVerifyUName")
+    @ResponseBody
+    public Map<String,Object> getVerifyUName(String uname){
+        Map<String,Object> map = new HashMap<>();
+        try {
+            User user = userService.getVerifyUName(uname);
+            if(user!=null){
+                map.put("msg",1);
+            }else{
+                map.put("msg",0);
             }
         } catch (Exception e) {
             e.printStackTrace();

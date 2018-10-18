@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
     public User getVerifyEmail(String email) {
         return userMapper.getVerifyEmail(email);
     }
+
+    @Override
+    public User getVerifyUName(String uname) {
+        return userMapper.getVerifyUName(uname);
+    }
 }
