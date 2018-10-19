@@ -110,6 +110,7 @@ public class ActionController extends BaseController {
     }
 
     @RequestMapping("login")
+    @ResponseBody
     public ResultMessage login(User user, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
