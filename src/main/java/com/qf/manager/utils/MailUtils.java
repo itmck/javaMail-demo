@@ -52,11 +52,4 @@ public class MailUtils {
         Transport.send(message);
     }
 
-
-//    public static void main(String[] args) throws IOException {
-//        Properties props = new Properties();
-//        props.load(ClassLoader.getSystemResourceAsStream("db.properties"));
-//        String userName  =(String)props.get("javaMail.userName");
-//        System.out.println(userName);
-//    }
 }
