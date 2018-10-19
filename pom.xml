@@ -226,10 +226,16 @@
             <version>1.4</version>
         </dependency>
         <!--openkit使用参见http://www.openkit.cc/docs/openkit/#/   jar包依赖冲突todo-->
-        <!--<dependency>
+       <!-- <dependency>
           <groupId>cc.openkit</groupId>
           <artifactId>open_kit</artifactId>
           <version>1.1.16</version>
+        </dependency>-->
+        <!--jfinal依赖 为了方便看源码-->
+        <!--<dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal</artifactId>
+            <version>3.5</version>
         </dependency>-->
     </dependencies>
 
