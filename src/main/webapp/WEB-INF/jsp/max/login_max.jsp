@@ -9,49 +9,8 @@
 <html>
 <head>
     <title></title>
-    <style>
-        body {
-            background-color: rgb(238, 238, 238);
-            height: 100%;
-            margin: auto;
-        }
-
-        #main {
-            margin-top: 5%;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-        }
-
-        #content {
-            text-align: center;
-        }
-
-        input {
-            height: 40px;
-            width: 300px;
-            border-radius: 4px;
-            border-color: #FFFFFF;
-            border: 0px;
-            font-size: 16px;
-            padding-left: 20px;
-        }
-
-        #btn_div {
-            margin: 10px;
-        }
-
-        .btn {
-            background-color: rgb(51, 122, 183);
-            border-radius: 10px;
-            border: 0px;
-        }
-
-        .radio {
-            width: 16px;
-            height: 16px;
-        }
-    </style>
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/common/loginMax.css">
 </head>
 
 <body>
