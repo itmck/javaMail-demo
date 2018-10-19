@@ -1,16 +1,9 @@
 package com.qf.manager.dao.mapper;
 
+import com.qf.manager.common.BaseMapper;
 import com.qf.manager.pojo.User;
 
-public interface UserMapper {
-
-    int insert(User record);
-
-    User selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+public interface UserMapper extends BaseMapper<User,Long> {
 
     //注册
     int registUser(User user);

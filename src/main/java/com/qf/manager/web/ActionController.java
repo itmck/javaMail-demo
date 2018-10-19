@@ -1,5 +1,7 @@
 package com.qf.manager.web;
 
+import com.qf.manager.common.BaseController;
+import com.qf.manager.common.ResultMessage;
 import com.qf.manager.pojo.User;
 import com.qf.manager.service.UserService;
 import com.qf.manager.utils.MailUtils;
@@ -22,7 +24,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/log")
-public class ActionController {
+public class ActionController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -76,7 +78,7 @@ public class ActionController {
 
         try {
             int i = userService.registUser(user);
-            MailUtils.sendEmail(user.getEmail(), user.getCode());
+            MailUtils.sendEmail(user.getEmail(), user.getCode());//发送激活邮件到对方邮箱
             map.put("msg", "注册成功,进入邮箱激活后即可使用");
         } catch (Exception e) {
             map.put("msg", "注册失败,重新注册");
@@ -108,7 +110,7 @@ public class ActionController {
     }
 
     @RequestMapping("login")
-    public String login(User user, HttpServletRequest request) {
+    public ResultMessage login(User user, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         String randomString = (String) session.getAttribute("randomString");
@@ -123,16 +125,16 @@ public class ActionController {
                 session.setAttribute("login_user", u.getUname());
                 session.setAttribute("msg", "登录成功");
                 session.setMaxInactiveInterval(1 * 60);//设置失效时间 单位时间为s  当1分钟没有活动就会失效session
-                return "sucess";
+                return new ResultMessage(SUCCESS,"登录成功");
 
             } catch (Exception e) {
                 session.setAttribute("msg", "登陆失败...............");
                 e.printStackTrace();
-                return "fail";
+                return new ResultMessage(FAIL,"登录失败,用户名或密码错误");
             }
         }else{
             session.setAttribute("msg", "验证码错误...............");
-            return "fail";
+            return new ResultMessage(WRONG_CONST,"登录失败,参数异常");
         }
 
     }
@@ -145,19 +147,18 @@ public class ActionController {
      */
     @RequestMapping(value="/getVerifyEmail")
     @ResponseBody
-    public Map<String,Object> getVerifyEmail(String email){
-        Map<String,Object> map = new HashMap<>();
+    public ResultMessage getVerifyEmail(String email){
         try {
             User user = userService.getVerifyEmail(email);
             if(user!=null){
-                map.put("msg","邮箱已经被占用,请更换邮箱");
+               return new ResultMessage(FAIL,"邮箱已经被占用,请更换邮箱");
             }else{
-                map.put("msg","邮箱可以使用");
+                return new ResultMessage(SUCCESS,"邮箱已经被占用,请更换邮箱");
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResultMessage(FAIL,"服务器错误");
         }
-        return map;
 
     }
     /**
