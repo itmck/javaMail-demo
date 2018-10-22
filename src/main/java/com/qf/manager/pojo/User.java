@@ -67,4 +67,16 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", uname='" + uname + '\'' +
+                ", upwd='" + upwd + '\'' +
+                ", state=" + state +
+                ", code='" + code + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
