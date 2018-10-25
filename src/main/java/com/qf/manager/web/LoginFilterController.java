@@ -20,6 +20,7 @@ public class LoginFilterController implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
 
 
+        //
         //设置登录过滤器,获取session域.然后获取登录名
         HttpSession session = httpServletRequest.getSession();
         if (null == session.getAttribute("login_user")) {//登录名不存在存在,跳转至登录页面
